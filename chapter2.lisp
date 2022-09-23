@@ -1,25 +1,19 @@
+(in-package :cs325-user)
+
 (defun greater (a b)
-    (if (> a b)
-        a
-        b))
+    (cond 
+        ((> a b) a)
+        (t b)))
+
+(defun has-list-p (lst)
+    (cond
+        ((null lst) nil)
+        ((listp (car lst)) t)
+        (t (has-list-p (cdr lst)))))
         
-(print (greater 98 10))
-
-
-(defun has-listp (lst)
-    (if (null lst)
-        nil
-        (if (listp (car lst))
-            t
-            (has-listp (cdr lst)))))
-        
-(print (has-listp `(a b c d e)))
-
 (defun print-dots (x)
-	(if (eql 0 x)
-		`done
-		(progn 
-			(format t ". ")
-			(print-dots (- x 1)))))
-
-(print-dots 10)
+    (cond
+        ((= 0 x) nil)
+        (t
+            (format t ".")
+            (print-dots (1- x)))))
