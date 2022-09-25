@@ -26,18 +26,31 @@
 (defun get-a-count (lst)
     (cond 
         ((null lst) 0)
-        (t (+ (if (= 'a (car lst)) 1 0)
-            (get-a-count (cdr lst))))))
+        (t 
+            (+ 
+                (if (eql 'a (car lst)) 1 0)
+                (get-a-count (cdr lst))))))
 
 (defun get-a-count (lst)
     (do ((ll lst (cdr ll))
-        (n 0 (if (= 'a (car lst)))))))
+        (n 0 
+            (if (eql 'a (car ll)) (1+ n) n)))
+        ((null ll) n)))
 
 ;; he wants to remove all the nil in the list but the function `remove` leaves the original list untouched
+;; so he needs to apply add to every element in the lst with nil removed but you can't do setf since that isn't
+;; functional programming
 
 (defun summit (lst)
-    (setf lst (remove nil lst))
-    (apply #'+ lst))
+    (apply #'+ (remove nil lst)))
+
+;;here he does not have a condition that breaks the recursion so he would get an infinite loop
 
 (defun summit (lst)
-    )
+    (cond 
+        ((null lst) 0)
+        (t 
+            (let ((x (car lst)))
+                (if (null x)
+                    (summit (cdr lst))
+                    (+ x (summit (cdr lst))))))))
