@@ -26,7 +26,7 @@
 
 (defun get-a-count (lst)
   (do ((ll lst (cdr ll))
-    (n 0 (if (eql 'a (car ll)) (1+ n) n)))
+       (n 0 (if (eql 'a (car ll)) (1+ n) n)))
     ((null ll) n)))
 
 ;; he wants to remove all the nil in the list but the function `remove` leaves the original list untouched
